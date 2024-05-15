@@ -1,0 +1,15 @@
+Pasos a instalar un entorno vitual.
+
+paso 1 - python3 -m pip install --upgrade pip
+paso 2 - virtualenv env
+paso 3 - source env/bin/activate
+
+
+PAra instalar FastAPI
+
+pip install fastapi
+Creo la aplicacion
+
+Para ejecutar el servidor.
+
+uvicorn main:app --reload (el main es el nombre del archivo y :app e)
