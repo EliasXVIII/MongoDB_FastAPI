@@ -13,3 +13,5 @@ Creo la aplicacion
 Para ejecutar el servidor.
 
 uvicorn main:app --reload (el main es el nombre del archivo y :app e)
+
+Autorizacion y auntenticación.
