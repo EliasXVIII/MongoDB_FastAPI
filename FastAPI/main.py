@@ -10,7 +10,7 @@ app = FastAPI() ##instanciar FastAPI
 ## aplico el router
 app.include_router(products.router)
 app.include_router(users.router)
-""" app.mount("/static", StaticFiles(directory="static")) """##No funciona REVISAR!! 
+##app.mount("/static", StaticFiles(directory="static"))##No funciona REVISAR!! 
 
 
 @app.get("/") ## con GET obtengo en / a través del protocolo HTTP 
