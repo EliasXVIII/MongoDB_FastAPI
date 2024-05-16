@@ -1,7 +1,17 @@
 from fastapi import FastAPI ##Importamos FastAPI
 import uvicorn 
 
+## importacion de router para enrutar apis
+from routers import products, users
+from fastapi.staticfiles import StaticFiles
+
 app = FastAPI() ##instanciar FastAPI
+
+## aplico el router
+app.include_router(products.router)
+app.include_router(users.router)
+""" app.mount("/static", StaticFiles(directory="static")) """##No funciona REVISAR!! 
+
 
 @app.get("/") ## con GET obtengo en / a través del protocolo HTTP 
 async def root(): ## uso async para que la aplicación no se detenga.

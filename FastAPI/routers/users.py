@@ -1,8 +1,8 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import APIRouter, HTTPException
 import uvicorn
 from pydantic import BaseModel
 
-app = FastAPI()
+router = APIRouter()
 
 ##voy a definir una entidad USER
 class User(BaseModel): ##El Base Model nos crea una entidad User
@@ -20,23 +20,23 @@ async def users():
     return [{"name": "Elias","surname":"Riquelme","age":36},{"name":"Irene","surname":"Gallego","age":29}] """
 
 ## con esta funcion busco en users todos los resultados.
-@app.get("/users/")
+@router.get("/users/")
 async def users():
     return users_list
 
-@app.get("/user/{id}")##Con el {id} hago que filtre por ID
+@router.get("/user/{id}")##Con el {id} hago que filtre por ID
 async def user(id: int):
     return search_user(id)
 
 ##Este ejemplo trabaja con query
-@app.get("/user/")
+@router.get("/user/")
 async def user(id: int):
     return search_user(id)
 
 
 
 ## Voy a hacer un POST
-@app.post("/user/", status_code=201)
+@router.post("/user/", status_code=201)
 async def user(user: User):
     if type(search_user(user.id))==User:
         raise HTTPException(status_code=204, detail="User already exists")
@@ -46,7 +46,7 @@ async def user(user: User):
         return user
     
 #implemento un PUT para actualizar o modificar datos.
-@app.put("/user/")
+@router.put("/user/")
 async def user(user: User):## si quiero actualizar el usuario completo tengo que pasarle los datos del usuario "user" ==> "User"
     found = False
     for index, saved_user in enumerate(users_list):
@@ -61,7 +61,7 @@ async def user(user: User):## si quiero actualizar el usuario completo tengo que
     
 
 ## Ahora voy a haer un DELETE
-@app.delete("/user/{id}")
+@router.delete("/user/{id}")
 async def user(id: int):
     found = False
     for index, saved_user in enumerate(users_list):
@@ -88,6 +88,6 @@ def search_user(id: int):
     except: 
         return {"error": "User not found this is empty"}
 
-
+ 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(router, host="127.0.0.1", port=8000)
