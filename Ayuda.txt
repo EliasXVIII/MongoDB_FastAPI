@@ -15,3 +15,8 @@ Para ejecutar el servidor.
 uvicorn main:app --reload (el main es el nombre del archivo y :app e)
 
 Autorizacion y auntenticación.
+
+PAra JWT tengo que instalar
+en FastAPI/routers $
+pip install "python-jose[cryptography]"
+pip install "passlib[bcrypt]"
