@@ -2,7 +2,7 @@ from fastapi import FastAPI ##Importamos FastAPI
 import uvicorn 
 
 ## importacion de router para enrutar apis
-from routers import products, users
+from routers import products, users, basic_auth_user, jwt_auth_users
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI() ##instanciar FastAPI
@@ -10,6 +10,8 @@ app = FastAPI() ##instanciar FastAPI
 ## aplico el router
 app.include_router(products.router)
 app.include_router(users.router)
+app.include_router(jwt_auth_users.router)
+app.include_router(basic_auth_user.router)
 ##app.mount("/static", StaticFiles(directory="static"))##No funciona REVISAR!! 
 
 

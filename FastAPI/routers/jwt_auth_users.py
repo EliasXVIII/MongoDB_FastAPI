@@ -1,4 +1,4 @@
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import Depends, APIRouter, HTTPException, status
 from pydantic import BaseModel
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
@@ -12,7 +12,7 @@ ACCESS_TOKEN_DURATION = 1
 ## para generar una palabra secreta tenemos el siguiente código que se ejecuta en consola $ openssl rand -hex 32
 SECRET = "1c85b246abedd2998d7031d11da7a33fe7221830d81ec783ec3e98bd81e7e5ef"
 
-app = FastAPI()
+router = APIRouter()
 
 oauth2 = OAuth2PasswordBearer(tokenUrl="login")
 
@@ -81,7 +81,7 @@ async def current_user(user : User = Depends(auth_user)):
             detail="Usuario inactivo")
     return user
 
-@app.post("/login")
+@router.post("/login")
 async def login(form: OAuth2PasswordRequestForm = Depends()):
     user_db = users_db.get(form.username)
     if not user_db:
@@ -101,6 +101,6 @@ async def login(form: OAuth2PasswordRequestForm = Depends()):
 
 ##Tengo la operacion para traer mis datos
 
-@app.get("/users/me")
+@router.get("/users/me")
 async def me(user: User = Depends(current_user)):
     return user
