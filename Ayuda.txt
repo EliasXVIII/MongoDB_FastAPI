@@ -20,3 +20,5 @@ PAra JWT tengo que instalar
 en FastAPI/routers $
 pip install "python-jose[cryptography]"
 pip install "passlib[bcrypt]"
+
+uvicorn jwt_auth_users:app --reload
