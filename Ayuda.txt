@@ -22,3 +22,9 @@ pip install "python-jose[cryptography]"
 pip install "passlib[bcrypt]"
 
 uvicorn jwt_auth_users:app --reload
+
+MONGO DB
+
+Para iniciar
+https://www.mongodb.com/try
+    Mongo DB Comunity Server
