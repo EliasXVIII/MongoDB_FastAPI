@@ -89,3 +89,16 @@ pip install pymongo desde nuestro entorno virtual.
 
 Lo primero crear una carpeta en la raiz con el nombre "db"
 Vamos a instalar el cliente que nos permite crear la base de datos.
+
+
+################33
+Al finaliza la instalación se inicializa el sistema
+sudo systemctl start mongod
+
+sudo systemctl status mongod
+
+sudo systemctl enable mongod
+
+mongo --eval 'db.runCommand({connectionStatus: 1})'
+
+mongo

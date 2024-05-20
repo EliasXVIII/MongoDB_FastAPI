@@ -1,28 +1,17 @@
 ##Este lo conectaré con Mongo DB API
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, status
+from db.models.user import User
 import uvicorn
-from pydantic import BaseModel
+from db.schemas.user import user_schema
+from db.client import db_client ##En este paso vamos a importar de la carpeta "db"."client" la llamada db_client
 
-router = APIRouter(prefix="/userdb",
-                   tags=["userdb"],
-                   responses={404: {"message": "No encontrado"}})
+router = APIRouter(prefix="/userdb", tags=["userdb"], responses={status.HTTP_404_NOT_FOUND: {"message": "No encontrado"}})
 
 
-##voy a definir una entidad USER
-class User(BaseModel): ##El Base Model nos crea una entidad User
-    id : int
-    name: str
-    surname: str
-    age: int
+users_list = []
 
-users_list = [User(id=1 ,name="Elias",surname="Riquelme", age=36),
-              User(id=2 ,name="Irene", surname="Gallego", age=29),
-              User(id=3 ,name="Nicolas", surname="Pino", age=33)]
 
-""" @app.get("/usersjson")
-async def users():
-    return [{"name": "Elias","surname":"Riquelme","age":36},{"name":"Irene","surname":"Gallego","age":29}] """
 
 ## con esta funcion busco en users todos los resultados.
 @router.get("/")
@@ -40,15 +29,27 @@ async def user(id: int):
 
 
 
+
+
+
+#        if type(search_user(user.id))==User:
+#           raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User already exists")
+#       Como Accedo a la base de datos??? 
+# declaro una variable y lo convierto a un json o diccionario y le paso el valor de user
+## En esta linea esta el db_client (que esta en db_client = MongoClient() en el archivo /FastAPI/db/client.py) luego "local" viene de la base de datos y en lamlista de "users" y uso la opcion insert_one para ingresar 1 user o defino en mi funcion user
 ## Voy a hacer un POST
-@router.post("/", status_code=201)
+@router.post("/", response_model=User, status_code=status.HTTP_201_CREATED)
 async def user(user: User):
-    if type(search_user(user.id))==User:
-        raise HTTPException(status_code=204, detail="User already exists")
-        """ return {"error": "User already exists"} """ ## ya no me sirve por que aplico HTTPException
-    else:
-        users_list.append(user)
-        return user
+    user_dict = dict(user) 
+    del user_dict["id"]
+    id = db_client.local.users.insert_one(user_dict).inserted_id   
+    new_user = user_schema(db_client.local.users.find_one({"_id": id}))
+    return User(**new_user)
+    
+
+
+
+
     
 #implemento un PUT para actualizar o modificar datos.
 @router.put("/")
