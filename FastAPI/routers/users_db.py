@@ -3,29 +3,30 @@
 from fastapi import APIRouter, HTTPException, status
 from db.models.user import User
 import uvicorn
-from db.schemas.user import user_schema
+from db.schemas.user import user_schema, users_schema
 from db.client import db_client ##En este paso vamos a importar de la carpeta "db"."client" la llamada db_client
+
+##para formatear los json o los objetos a ObjectId de MongoDB utilizo lo siguiente
+from bson  import ObjectId
 
 router = APIRouter(prefix="/userdb", tags=["userdb"], responses={status.HTTP_404_NOT_FOUND: {"message": "No encontrado"}})
 
 
-users_list = []
-
 
 
 ## con esta funcion busco en users todos los resultados.
-@router.get("/")
+@router.get("/", response_model=list[User])
 async def users():
-    return users_list
+    return users_schema(db_client.local.users.find())
 
 @router.get("/{id}")##Con el {id} hago que filtre por ID
-async def user(id: int):
-    return search_user(id)
+async def user(id: str):
+    return search_user("_id", ObjectId(id))
 
 ##Este ejemplo trabaja con query
 @router.get("/")
-async def user(id: int):
-    return search_user(id)
+async def user(id: str):
+    return search_user("_id", ObjectId(id))
 
 
 
@@ -40,6 +41,8 @@ async def user(id: int):
 ## Voy a hacer un POST
 @router.post("/", response_model=User, status_code=status.HTTP_201_CREATED)
 async def user(user: User):
+    if type(search_user("email", user.email)) == User:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User already exists")
     user_dict = dict(user) 
     del user_dict["id"]
     id = db_client.local.users.insert_one(user_dict).inserted_id   
@@ -52,33 +55,29 @@ async def user(user: User):
 
     
 #implemento un PUT para actualizar o modificar datos.
-@router.put("/")
+@router.put("/", response_model=User)
 async def user(user: User):## si quiero actualizar el usuario completo tengo que pasarle los datos del usuario "user" ==> "User"
-    found = False
-    for index, saved_user in enumerate(users_list):
-        if saved_user.id == user.id:
-            users_list[index] = user
-            found = True
-    
-    if not found:
-        return {"error": "No se actualiza el usuario"}
-    else:
-        return user
+    user_dict = dict(user)
+    del user_dict["id"]
+
+    try:
+        
+        db_client.local.users.find_one_and_replace({"_id": ObjectId(user.id)}, user_dict)
+
+    except:
+        return {"error":"no se ha actualizado el usuario"}    
+
+    return search_user("_id", ObjectId(user.id)) 
     
 
 ## Ahora voy a haer un DELETE
-@router.delete("/{id}")
-async def user(id: int):
-    found = False
-    for index, saved_user in enumerate(users_list):
-        if saved_user.id == id:
-            del users_list[index]
-            found = True
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+async def user(id: str):
+    found = db_client.local.users.find_one_and_delete({"_id": ObjectId(id)})
     
     if not found:
         return {"error": "No se elimina el usuario"}
-    else:
-        return {"message": "Usuario eliminado"}
+    
 
 
 
@@ -87,12 +86,26 @@ async def user(id: int):
 
 
 ##Funcion para buscar usuarios.
-def search_user(id: int):
-    users = filter(lambda user: user.id == id, users_list)
+""" def search_user_by_email(email: str):
+    
     try:
-        return list(users)[0]
+       user = db_client.local.users.find_one({"email": email})
+       return User(**user_schema(user))
     except: 
         return {"error": "User not found this is empty"}
+     """
+
+
+
+
+def search_user(field:str, key):
+    
+    try:
+       user = db_client.local.users.find_one({field: key})
+       return User(**user_schema(user))
+    except: 
+        return {"error": "User not found this is empty"}
+
 
  
 if __name__ == "__main__":

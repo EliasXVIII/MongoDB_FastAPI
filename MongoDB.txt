@@ -16,72 +16,41 @@ sudo apt update
 
 sudo apt install mongodb-org -y
 
-Instalar libssl1.1 manualmente: Puedes descargar el paquete libssl1.1 desde un repositorio de versiones anteriores o de una fuente confiable y luego instalarlo manualmente.
 
-Añadir el repositorio correcto de MongoDB: Asegúrate de que estás utilizando el repositorio correcto para tu distribución de Linux.
 
-Instalar una versión anterior de MongoDB: Si no necesitas la última versión de MongoDB, puedes instalar una versión anterior que no dependa de libssl1.1.
-
-Aquí están los pasos detallados para instalar libssl1.1 manualmente y luego instalar MongoDB:
+ para instalar libssl1.1 manualmente y luego instalar MongoDB:
 
 Paso 1: Descargar e instalar libssl1.1
-Descarga libssl1.1 desde una fuente confiable. Por ejemplo, puedes usar un repositorio de Debian:
+Descargar libssl1.1 desde Debian:
 
-bash
-Copiar código
+
 wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb
-Instala el paquete descargado:
 
-bash
-Copiar código
+Instala el paquete descargado:
 sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+
+
 Paso 2: Añadir el repositorio de MongoDB y actualizar
 Añade la clave GPG de MongoDB:
-
-bash
-Copiar código
 wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
-Crea un archivo de lista para MongoDB:
 
-bash
-Copiar código
+Crear un archivo de lista para MongoDB:
+
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-Actualiza la lista de paquetes:
 
-bash
-Copiar código
+actualizar la lista de paquetes:
+
+
 sudo apt update
-Paso 3: Instalar MongoDB
-Ahora puedes instalar MongoDB:
 
-bash
-Copiar código
+Paso 3 Instalar MongoDB
+
+
 sudo apt install mongodb-org -y
-Alternativa: Instalar una versión anterior de MongoDB
-Si prefieres instalar una versión anterior de MongoDB que no dependa de libssl1.1, puedes buscar en el repositorio de MongoDB y seleccionar una versión compatible con tu sistema.
 
-Por ejemplo, para instalar MongoDB 4.2:
 
-Añade la clave GPG de MongoDB:
 
-bash
-Copiar código
-wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
-Crea un archivo de lista para MongoDB:
 
-bash
-Copiar código
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
-Actualiza la lista de paquetes:
-
-bash
-Copiar código
-sudo apt update
-Instala MongoDB:
-
-bash
-Copiar código
-sudo apt install mongodb-org -y
 
 
 Luego de todo esto instalamos 
@@ -102,3 +71,9 @@ sudo systemctl enable mongod
 mongo --eval 'db.runCommand({connectionStatus: 1})'
 
 mongo
+
+{
+  "id": "664c4d2da6126873a29bd1b9",
+  "username": "elias",
+  "email": "elias@123.com"
+}
