@@ -18,14 +18,14 @@ app.include_router(users_db.router)
 
 @app.get("/") ## con GET obtengo en / a través del protocolo HTTP 
 async def root(): ## uso async para que la aplicación no se detenga.
-    return {"Hello": "World"}
+    return {"Hola": "Esto se encuentra en '/' de la aplicación"}
 
 ## En FastAPI puedo utilizar UVICORN para levantar el servidor.
 ## para esto ejecuto en la terminal $ uvicorn main:app --reload
 
 @app.get("/url")
 async def root():
-    return {"Hello": "prueba"}
+    return {"Ahora esto": "esta en '/url' de la aplicación"}
 
 #Documentacion con Swagger /docs
 #Documentacion con Redocly /redoc

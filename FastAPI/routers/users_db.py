@@ -95,7 +95,6 @@ async def user(id: str):
     
     if not found:
         return {"error": "No se elimina el usuario"}
-    
 
 
 
