@@ -77,3 +77,14 @@ mongo
   "username": "elias",
   "email": "elias@123.com"
 }
+
+https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-20-04-es
+DETENER EL SERVIDOR sudo systemctl stop mongod
+
+
+una vez registrado desde Database 
+crear la base de datos
+
+cluster10
+ellias usuario
+HicsPB8Il7jgEJ1q contraseña MongoDB
