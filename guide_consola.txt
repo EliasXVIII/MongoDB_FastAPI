@@ -1,0 +1,30 @@
+** Conectar a MongoDB a traves de la terminal Linux **
+fuente: https://dev.to/jessicamelerodev/consultas-basicas-en-mongodb-por-terminal-4kk9#:~:text=Para%20entrar%20en%20la%20terminal,siguiente%2C%20entonces%20todo%20est%C3%A1%20correcto.&text=Este%20comando%20mostrar%C3%A1%20un%20listado,con%20los%20GB%20que%20ocupan.&text=Ahora%20hay%20que%20seleccionar%20la,poder%20realizar%20operaciones%20sobre%20ella.
+
+1 - 1- **Abrir terminal linux** ¡¡¡NO COPIAR "$"!!!
+
+2 - $ mongo o mongod
+    Deberia aparecer algo así:
+        MongoDB shell version v5.0.26
+        connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+        Error: couldn't connect to server 127.0.0.1:27017, connection attempt failed: SocketException: Error connecting to 127.0.0.1:27017 :: caused by :: Connection refused :
+        connect@src/mongo/shell/mongo.js:372:17
+        @(connect):2:6
+        exception: connect failed
+        exiting with code 1
+
+3 - ** Hay que ingresar con la clave que nos dan en
+    //Database //Dataservice //Connect //shell
+    esto dentro de la web MongoDB
+
+    - $ mongosh "mongodb+srv://cluster10.voo1tde.mongodb.net/" --apiVersion 1 --username elias
+    
+    -Pedirá la contraseña que es la que hemos configurado cuando inciamos en la WEB de MongoDB
+
+4 - ** Para visualizar las bases de datos **
+
+    $ show databases
+
+5 - 
+
+    

@@ -1,0 +1,45 @@
+1- **Abrir terminal linux** ¡¡¡NO COPIAR "$"!!!
+
+2- $ sudo apt update
+3- $ sudo apt upgrade
+
+4- $ sudo apt install wget curl gnupg2 software-properties-common apt-transport-https ca-certificates lsb-release
+
+5- $ curl -fsSL https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+
+6- $ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+
+7 *** instalar libssl1.1 manualmente y luego instalar MongoDB ***
+
+8- *** Descargar libssl1.1 desde Debian ***
+
+    8.1 - $ wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+
+
+    8.2 ** Instala el paquete descargado**
+        - $ sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+
+    8.3 ** Añadir el repositorio de MongoDB y actualizar la clave GPG de MongoDB:
+        - $ wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+    
+    8.4 ** Crear un archivo de lista para MongoDB ** 
+        - echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+    
+    8.5 **Actualizar la lista de paquetes **
+        - sudo apt update
+
+9 - ** Instalar MongoDB **
+
+    - $ sudo apt install mongodb-org -y
+
+
+10 - ** Luego de todo esto instalamos 
+    - $ pip install pymongo "desde nuestro entorno virtual"
+
+INICIALIZACION del servicio de MongoDB
+
+- INICIAR - $ sudo systemctl start mongod
+
+- VERIFICAR - $ sudo systemctl status mongod
+
+- ACTIVAR - $ sudo systemctl enable mongod
