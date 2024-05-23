@@ -1,7 +1,6 @@
 ** Conectar a MongoDB a traves de la terminal Linux **
-fuente: https://dev.to/jessicamelerodev/consultas-basicas-en-mongodb-por-terminal-4kk9#:~:text=Para%20entrar%20en%20la%20terminal,siguiente%2C%20entonces%20todo%20est%C3%A1%20correcto.&text=Este%20comando%20mostrar%C3%A1%20un%20listado,con%20los%20GB%20que%20ocupan.&text=Ahora%20hay%20que%20seleccionar%20la,poder%20realizar%20operaciones%20sobre%20ella.
 
-1 - 1- **Abrir terminal linux** ¡¡¡NO COPIAR "$"!!!
+1 - 1- **Abrir terminal linux** ℹ️☝️¡¡¡NO COPIAR  "$"!!!☝️ℹ️
 
 2 - $ mongo o mongod
     Deberia aparecer algo así:
@@ -23,8 +22,93 @@ fuente: https://dev.to/jessicamelerodev/consultas-basicas-en-mongodb-por-termina
 
 4 - ** Para visualizar las bases de datos **
 
-    $ show databases
+    - $ show databases     O abreviado - $ show dbs
 
-5 - 
+5 - ** Con el siguiente comando seleccionas la base de datos 
+
+    - $ use <nombre de la base seleccinada>
+
+6 - ** Con el siguiente comando visualizas todas las colecciones disponibles
+
+    - $ show tables    ||  $ show collections
+
+7 - ** Operaciones CRUD 💻
+    Find (👀)
+
+    - ** La consulta mas básica es la find() Recoge todos los documentos de la tabla o collección
+
+    - $ db.<nombre_de_la_collección>.find()
+
+        [
+            {
+                _id: ObjectId('664cf5b9535982cc1a15bed0'),
+                username: 'Andres',
+                email: 'andres@andres.com'
+            },
+            {
+                _id: ObjectId('664cfa14535982cc1a15bed2'),
+                username: 'Elias',
+                email: 'elias@elias.com'
+            }
+        ]
+
+    - $ db.<nombre_de_la_collección>.findOne({username: "Andres"})
+
+8 - ** Operacion CREATE
+    Create ➕
+
+    db.<nombre_de_la_collección>.insertOne({username: "Irene", email:"irene@irene"})
+        {
+            acknowledged: true,
+            insertedId: ObjectId('664f87eda3cee7fd0ba26a13')
+        }
+
+    Consultar este por su ID para verificar que es correcta la inserción seria     
+
+    - $ db.<nombre_de_la_collección>.findOne({ _id: ObjectId('664f87eda3cee7fd0ba26a13')})
+
+        Nos devuelve
+            {
+             _id: ObjectId('664f87eda3cee7fd0ba26a13'),
+            username: 'Irene',
+            email: 'irene@irene'
+            }
+
+9 - ** UPDATE ✏️✏️
+
+    - Para poder actualizar un documento usaremos el método updateOne() y la palabra $set
+
+    - $ db.<nombre_de_la_collección>.updateOne({username:"Irene"}, {$set: {email: "irene@irene.com.ar"}})
+
+    Si todo va bien aparecerá algo así.
+        {
+        acknowledged: true,
+        insertedId: null,
+        matchedCount: 1,
+        modifiedCount: 1,
+        upsertedCount: 0
+        }      
+    En el caso de que no encuentre el documento aparecerá {"matchedCount":0 
+                                                          "modifiedCount":0}
+
+10 - ** DELETE ❌
+
+    - Para eliminar se utiliza el siguiente comando
+
+    - $ db.<nombre_de_la_collección>.deleteOne({username: 'Usuario Prueba editado'})
+        Si el borrado es correcto aparecerá algo como esto: { acknowledged: true, deletedCount: 1 } 
+        sino aparecera esto { acknowledged: false, deletedCount: 0 }
+    
+    - Para borrar una colección completa el comando 
+    - $ db.<nombre_de_la_collección>.drop() !!!!!!!!!CUIDADO!!!!!!!!!!!
+
+  👋   Esta guía es básica pero ayuda a entender algunos conceptos báscicos 👋 
+
+
+
+
+
+
+    
 
     

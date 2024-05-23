@@ -1,12 +1,15 @@
 
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status ##API Router lo utilizo para crear un enrutador modular || HTTP HTTPException para manejar errores HTTP ya que las consultas seran a traves de HTTP y status para acceder a los códigos de estado HTTP.
 from db.models.user import User
-from db.schemas.user import user_schema, users_schema
-from db.client import db_client  # Importamos db_client desde el módulo client
-from bson import ObjectId
+from db.schemas.user import user_schema, users_schema ##User es el modelo de datos de un usuario Y user_schema y users_schema son funciones para serializar y deserializar usuarios que he creado en MongoDB_FastAPI/FastAPI/db/schemas/user.py
+
+from db.client import db_client  # db_client es el cliente de MongoDB que traigo de FastAPI/db/client.py
+from bson import ObjectId #ObjectId es necesario para trabajar con IDs de MongoDB.
 
 router = APIRouter(prefix="/userdb", tags=["userdb"], responses={status.HTTP_404_NOT_FOUND: {"message": "No encontrado"}})
+# APIRouter es para crea un enrutador con el prefijo /userdb "tags" es para documentar el grupo de rutas bajo el nombre "userdb" y Responses es para personalizar un error en caso de que no encuentre algo que le pida
+
 
 # Selecciona la base de datos y la colección
 database = db_client['Cluster10']
