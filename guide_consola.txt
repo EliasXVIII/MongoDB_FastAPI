@@ -73,6 +73,12 @@
             username: 'Irene',
             email: 'irene@irene'
             }
+    - ** Para insertar varios a la vez
+
+    - $ db.<nombre_de_la_collección>.insertMany([
+        {username: "pureba", email: "e@e"},
+        {username: "prueba2", email: "a@a"}
+        ])
 
 9 - ** UPDATE ✏️✏️
 
@@ -102,7 +108,7 @@
     - Para borrar una colección completa el comando 
     - $ db.<nombre_de_la_collección>.drop() !!!!!!!!!CUIDADO!!!!!!!!!!!
 
-  👋   Esta guía es básica pero ayuda a entender algunos conceptos báscicos 👋 
+  👋   Esta guía es básica pero ayuda a entender algunos conceptos básicos 👋 
 
 
 

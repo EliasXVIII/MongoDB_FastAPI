@@ -1,9 +1,10 @@
+## desde aca vamos a encargarnos de conectar nuestra base datos con MongoDB Atlas
 from pymongo import MongoClient
 
-# URL de conexión a MongoDB
+# URL de la conexión a MongoDB
 mongodb_url = "mongodb+srv://elias:HicsPB8Il7jgEJ1q@cluster10.voo1tde.mongodb.net/?retryWrites=true&w=majority&appName=Cluster10"
 
-# Crea el cliente MongoDB y hazlo accesible como db_client
+# Crea el cliente MongoDB y accedo a db_client
 db_client = MongoClient(mongodb_url) 
 
 
