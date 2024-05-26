@@ -11,6 +11,9 @@ router = APIRouter(prefix="/userdb", tags=["userdb"], responses={status.HTTP_404
 # APIRouter es para crea un enrutador con el prefijo /userdb "tags" es para documentar el grupo de rutas bajo el nombre "userdb" y Responses es para personalizar un error en caso de que no encuentre algo que le pida
 
 
+
+
+
 # Selecciona la base de datos y la colección
 database = db_client['Cluster10']
 users_collection = database['users']
@@ -26,9 +29,9 @@ users_collection = db_client['mongodb+srv://elias:HicsPB8Il7jgEJ1q@cluster10.voo
 
 
 ## con esta funcion busco en users todos los resultados.
-@router.get("/", response_model=list[User])
+@router.get("/", response_model=list[User]) ##Especifica que la respuesta será una lista de objeto
 async def users():
-    return users_schema(users_collection.find())
+    return users_schema(users_collection.find()) ##  Recupera todos los documentos en la colección y los convierte al esquema que le asignamos a users_schema
     #return users_schema(db_client.users.find())
 
 @router.get("/{id}")##Con el {id} hago que filtre por ID

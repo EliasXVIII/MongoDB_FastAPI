@@ -76,8 +76,8 @@
     - ** Para insertar varios a la vez
 
     - $ db.<nombre_de_la_collección>.insertMany([
-        {username: "pureba", email: "e@e"},
-        {username: "prueba2", email: "a@a"}
+        {username: "elias", email: "e@e"},
+        {username: "elias2", email: "e2@e2"}
         ])
 
 9 - ** UPDATE ✏️✏️

@@ -13,8 +13,11 @@ app.include_router(users.router)
 app.include_router(jwt_auth_users.router)
 app.include_router(basic_auth_user.router)
 app.include_router(users_db.router)
-##app.mount("/static", StaticFiles(directory="static"))##No funciona REVISAR!! 
 
+
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
+# Para iniciar el front voy a esta dirección
+##http://127.0.0.1:8000/static/index.html
 
 @app.get("/") ## con GET obtengo en / a través del protocolo HTTP 
 async def root(): ## uso async para que la aplicación no se detenga.
