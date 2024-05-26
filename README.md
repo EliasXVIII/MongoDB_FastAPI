@@ -60,7 +60,13 @@ uvicorn main:app --reload
 
 4. Accede a la aplicación en tu navegador web:
 
-http://127.0.0.1:8000
+a traves de  http://127.0.0.1:8000 y al front http://127.0.0.1:8000/static/index.html
+
+## Contacto
+### Para dudas y consultas..
+![LINKEDIN](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)
+
+- [Elias Javier Riquelme](https://www.linkedin.com/in/elias-javier-riquelme-b62655297/)
 
 
 
