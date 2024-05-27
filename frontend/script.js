@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const obtenerUsuarios = document.getElementById('obtenerUsuarios');
     const listaUsuarios = document.getElementById('listaUsuarios');
 
-    crearUsuario.addEventListener('submit', async (event) => {
-        event.preventDefault();
+    crearUsuario.addEventListener('submit', async (e) => {
+        e.preventDefault();
         const formData = new FormData(crearUsuario);
         const user = {
             username: formData.get('username'),
