@@ -1,12 +1,16 @@
 from fastapi import FastAPI ##Importamos FastAPI
 import uvicorn 
+##from faker import Faker
 
 ## importacion de router para enrutar apis
 from routers import products, users, basic_auth_user, jwt_auth_users, users_db
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI() ##instanciar FastAPI
+##fake = Faker()
 
+""" for _ in range(2000):
+    print(fake.name()) """
 ## aplico el router
 app.include_router(products.router)
 app.include_router(users.router)
@@ -32,6 +36,7 @@ async def root():
 
 #Documentacion con Swagger /docs
 #Documentacion con Redocly /redoc
+
 
 if __name__ == "__main__": ## con esto hago que se ejecute el servidor desde main 
     uvicorn.run(app, host="127.0.0.1", port=8000)
